@@ -22,7 +22,7 @@ python -c "from lxml import etree; from dd.autoref import BDD; print('✓ Ready 
 
 ```bash
 cd src
-python run_task3_experiments
+python run_task3_experiments.py
 ```
 
 You should see:
@@ -49,3 +49,7 @@ python explicit.py
 python symbolic.py
 ```
 
+### Test Task 5 (Optimization)
+```bash
+python optimization.py example_task5.pnml
+```

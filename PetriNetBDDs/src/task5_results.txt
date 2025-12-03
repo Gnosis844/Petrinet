@@ -1,0 +1,11 @@
+
+[TASK 5] Báo cáo Tối ưu hóa cho mô hình: mutex_2proc.pnml
+==================================================
+Hàm Mục tiêu: Maximize tổng số tokens (c = 1 cho tất cả places).
+Trọng số chi tiết: {'P1_crit': 1, 'P1_idle': 1, 'P1_wait': 1, 'P2_crit': 1, 'P2_idle': 1, 'P2_wait': 1, 'mutex': 1}
+ILP Solver Status: Optimal
+
+--- KẾT QUẢ TỐI ƯU HÓA CUỐI CÙNG ---
+Marking tối ưu (M*): {'P1_crit': 0, 'P1_idle': 1, 'P1_wait': 0, 'P2_crit': 0, 'P2_idle': 1, 'P2_wait': 0, 'mutex': 1}
+Giá trị Hàm Mục tiêu tối đa: 3
+==================================================
