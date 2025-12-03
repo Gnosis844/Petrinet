@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="chain-4" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Linear chain: 4 places, 3 transitions -->
+    <!-- Expected states: 4 (P1) -> (P2) -> (P3) -> (P4) -->
+    
+    <place id="P1">
+      <n><text>P1</text></n>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    
+    <place id="P2">
+      <n><text>P2</text></n>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    
+    <place id="P3">
+      <n><text>P3</text></n>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    
+    <place id="P4">
+      <n><text>P4</text></n>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    
+    <transition id="T1"><n><text>T1</text></n></transition>
+    <transition id="T2"><n><text>T2</text></n></transition>
+    <transition id="T3"><n><text>T3</text></n></transition>
+    
+    <arc id="A1" source="P1" target="T1"/>
+    <arc id="A2" source="T1" target="P2"/>
+    <arc id="A3" source="P2" target="T2"/>
+    <arc id="A4" source="T2" target="P3"/>
+    <arc id="A5" source="P3" target="T3"/>
+    <arc id="A6" source="T3" target="P4"/>
+  </net>
+</pnml>

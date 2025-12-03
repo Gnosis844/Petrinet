@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="mutex-2proc" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- 2 processes competing for mutex -->
+    <!-- Expected states: ~20-30 states -->
+    
+    <!-- Process 1 -->
+    <place id="P1_idle">
+      <n><text>P1_idle</text></n>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P1_wait">
+      <n><text>P1_wait</text></n>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P1_crit">
+      <n><text>P1_crit</text></n>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    
+    <!-- Process 2 -->
+    <place id="P2_idle">
+      <n><text>P2_idle</text></n>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2_wait">
+      <n><text>P2_wait</text></n>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P2_crit">
+      <n><text>P2_crit</text></n>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    
+    <!-- Mutex resource -->
+    <place id="mutex">
+      <n><text>mutex</text></n>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    
+    <!-- Process 1 transitions -->
+    <transition id="T1_req"><n><text>T1_req</text></n></transition>
+    <transition id="T1_enter"><n><text>T1_enter</text></n></transition>
+    <transition id="T1_exit"><n><text>T1_exit</text></n></transition>
+    
+    <!-- Process 2 transitions -->
+    <transition id="T2_req"><n><text>T2_req</text></n></transition>
+    <transition id="T2_enter"><n><text>T2_enter</text></n></transition>
+    <transition id="T2_exit"><n><text>T2_exit</text></n></transition>
+    
+    <!-- Process 1 arcs -->
+    <arc id="A1" source="P1_idle" target="T1_req"/>
+    <arc id="A2" source="T1_req" target="P1_wait"/>
+    <arc id="A3" source="P1_wait" target="T1_enter"/>
+    <arc id="A4" source="mutex" target="T1_enter"/>
+    <arc id="A5" source="T1_enter" target="P1_crit"/>
+    <arc id="A6" source="P1_crit" target="T1_exit"/>
+    <arc id="A7" source="T1_exit" target="P1_idle"/>
+    <arc id="A8" source="T1_exit" target="mutex"/>
+    
+    <!-- Process 2 arcs -->
+    <arc id="A9" source="P2_idle" target="T2_req"/>
+    <arc id="A10" source="T2_req" target="P2_wait"/>
+    <arc id="A11" source="P2_wait" target="T2_enter"/>
+    <arc id="A12" source="mutex" target="T2_enter"/>
+    <arc id="A13" source="T2_enter" target="P2_crit"/>
+    <arc id="A14" source="P2_crit" target="T2_exit"/>
+    <arc id="A15" source="T2_exit" target="P2_idle"/>
+    <arc id="A16" source="T2_exit" target="mutex"/>
+  </net>
+</pnml>
