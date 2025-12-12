@@ -292,8 +292,8 @@ def main() -> None:
         # Default test set – adjust paths/filenames to your project layout
         pnml_files = [
             Path("testcases/example.pnml"),
-            Path("testcases/chain_4.pnml"),
-            Path("testcases/mutex_2proc.pnml"),
+            Path("testcases/chain-4.pnml"),
+            Path("testcases/mutex-2proc.pnml"),
         ]
         print("No PNML files specified. Using default test set:")
         for p in pnml_files:

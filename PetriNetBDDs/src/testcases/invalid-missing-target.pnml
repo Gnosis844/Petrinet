@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="net_missing_target" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page1">
+
+      <place id="p1">
+        <name><text>p1</text></name>
+        <initialMarking><text>1</text></initialMarking>
+      </place>
+
+      <transition id="t1">
+        <name><text>t1</text></name>
+      </transition>
+
+      <!-- Valid arc: p1 -> t1 -->
+      <arc id="a1" source="p1" target="t1"/>
+
+      <!-- INVALID arc: target = t_missing (node does not exist) -->
+      <arc id="a2" source="p1" target="t_missing"/>
+
+    </page>
+  </net>
+</pnml>

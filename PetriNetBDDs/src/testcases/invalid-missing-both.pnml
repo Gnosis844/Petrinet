@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="net_missing_both" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page1">
+
+      <place id="p1">
+        <name><text>p1</text></name>
+        <initialMarking><text>1</text></initialMarking>
+      </place>
+
+      <!-- No transition tX defined here on purpose -->
+
+      <!-- INVALID arc: both source and target refer to unknown nodes -->
+      <arc id="a1" source="p_unknown" target="t_unknown"/>
+
+    </page>
+  </net>
+</pnml>
