@@ -1,0 +1,13 @@
+# Core dependencies for Petri Net Analysis
+
+# Task 1: PNML parsing
+lxml>=5.3.0
+
+# Task 3: Symbolic BDD reachability
+dd>=0.5.6
+
+# Task 4 & 5: ILP-based deadlock detection and optimization
+pulp>=2.8.0
+
+# Task 5: Matrix operations for optimization
+numpy>=1.24.0

@@ -1,6 +1,6 @@
 ================================================================================
 Petri Net Analysis - Tasks 1-5
-Started at: 2025-12-12 21:28:31
+Started at: 2025-12-12 22:39:05
 Output file: results.txt
 ================================================================================
 
@@ -69,7 +69,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_complex_workflow.pnml
 ============================================================
 Number of reachable markings: 9
 BDD node count: 105
-Computation time: 0.008562 seconds
+Computation time: 0.006023 seconds
 
 All reachable markings:
   ['end']
@@ -143,7 +143,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_dining_philosophers.pn
 ============================================================
 Number of reachable markings: 3
 BDD node count: 57
-Computation time: 0.002034 seconds
+Computation time: 0.004624 seconds
 
 All reachable markings:
   ['P1_eating', 'P2_thinking']
@@ -211,7 +211,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_mutex_2processes.pnml
 ============================================================
 Number of reachable markings: 8
 BDD node count: 167
-Computation time: 0.007017 seconds
+Computation time: 0.008034 seconds
 
 All reachable markings:
   ['P1_crit', 'P2_idle']
@@ -284,7 +284,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_producer_consumer_buff
 ============================================================
 Number of reachable markings: 2
 BDD node count: 20
-Computation time: 0.003008 seconds
+Computation time: 0.001509 seconds
 
 All reachable markings:
   ['buffer_slot1', 'buffer_slot2', 'consumer_ready', 'producer_ready']
@@ -351,7 +351,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_valid_basic.pnml
 ============================================================
 Number of reachable markings: 2
 BDD node count: 6
-Computation time: 0.001644 seconds
+Computation time: 0.000000 seconds
 
 All reachable markings:
   ['P1']
@@ -429,7 +429,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_duplicate_place_id.p
 ============================================================
 Number of reachable markings: 1
 BDD node count: 2
-Computation time: 0.000997 seconds
+Computation time: 0.000999 seconds
 
 All reachable markings:
   []
@@ -497,7 +497,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_duplicate_transition
 ============================================================
 Number of reachable markings: 2
 BDD node count: 2
-Computation time: 0.001506 seconds
+Computation time: 0.001130 seconds
 
 All reachable markings:
   []
@@ -565,7 +565,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_empty_initial_markin
 ============================================================
 Number of reachable markings: 1
 BDD node count: 4
-Computation time: 0.000998 seconds
+Computation time: 0.001374 seconds
 
 All reachable markings:
   []
@@ -633,7 +633,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_invalid_initial_mark
 ============================================================
 Number of reachable markings: 1
 BDD node count: 2
-Computation time: 0.000997 seconds
+Computation time: 0.001002 seconds
 
 All reachable markings:
   []
@@ -708,7 +708,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_missing_initial_mark
 ============================================================
 Number of reachable markings: 1
 BDD node count: 2
-Computation time: 0.001001 seconds
+Computation time: 0.001023 seconds
 
 All reachable markings:
   []
@@ -792,7 +792,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_self_loop_place.pnml
 ============================================================
 Number of reachable markings: 1
 BDD node count: 4
-Computation time: 0.001996 seconds
+Computation time: 0.002006 seconds
 
 All reachable markings:
   ['P1']
@@ -860,7 +860,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_self_loop_transition
 ============================================================
 Number of reachable markings: 1
 BDD node count: 2
-Computation time: 0.001198 seconds
+Computation time: 0.001007 seconds
 
 All reachable markings:
   ['P1']
@@ -926,7 +926,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_empty_net.pnml
 ============================================================
 Number of reachable markings: 1
 BDD node count: 1
-Computation time: 0.001001 seconds
+Computation time: 0.001006 seconds
 
 All reachable markings:
   []
@@ -994,7 +994,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_isolated_transition.pn
 ============================================================
 Number of reachable markings: 1
 BDD node count: 2
-Computation time: 0.000000 seconds
+Computation time: 0.001007 seconds
 
 All reachable markings:
   []
@@ -1060,7 +1060,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_multiple_initial_token
 ============================================================
 Number of reachable markings: 2
 BDD node count: 11
-Computation time: 0.001006 seconds
+Computation time: 0.000000 seconds
 
 All reachable markings:
   ['P1', 'P2']
@@ -1129,7 +1129,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_single_place.pnml
 ============================================================
 Number of reachable markings: 1
 BDD node count: 2
-Computation time: 0.000996 seconds
+Computation time: 0.000000 seconds
 
 All reachable markings:
   ['P1']
@@ -1197,7 +1197,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_branch_merge.pnml
 ============================================================
 Number of reachable markings: 2
 BDD node count: 6
-Computation time: 0.001997 seconds
+Computation time: 0.000992 seconds
 
 All reachable markings:
   ['P1']
@@ -1266,7 +1266,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_chain_4places.pnml
 ============================================================
 Number of reachable markings: 4
 BDD node count: 34
-Computation time: 0.003999 seconds
+Computation time: 0.003001 seconds
 
 All reachable markings:
   ['P1']
@@ -1337,7 +1337,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_concurrent_choice.pnml
 ============================================================
 Number of reachable markings: 2
 BDD node count: 6
-Computation time: 0.001026 seconds
+Computation time: 0.000000 seconds
 
 All reachable markings:
   ['P1']
@@ -1406,7 +1406,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_cycle_3states.pnml
 ============================================================
 Number of reachable markings: 3
 BDD node count: 17
-Computation time: 0.001893 seconds
+Computation time: 0.002225 seconds
 
 All reachable markings:
   ['P1']
@@ -1474,7 +1474,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_fork_join.pnml
 ============================================================
 Number of reachable markings: 3
 BDD node count: 26
-Computation time: 0.001394 seconds
+Computation time: 0.002504 seconds
 
 All reachable markings:
   ['P1']
@@ -1544,7 +1544,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_parallel_independent.p
 ============================================================
 Number of reachable markings: 4
 BDD node count: 36
-Computation time: 0.001878 seconds
+Computation time: 0.002002 seconds
 
 All reachable markings:
   ['P1', 'Q1']
@@ -1615,7 +1615,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_producer_consumer_cycl
 ============================================================
 Number of reachable markings: 2
 BDD node count: 6
-Computation time: 0.001005 seconds
+Computation time: 0.001002 seconds
 
 All reachable markings:
   ['p1']
@@ -1682,7 +1682,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_single_state.pnml
 ============================================================
 Number of reachable markings: 1
 BDD node count: 4
-Computation time: 0.000996 seconds
+Computation time: 0.000998 seconds
 
 All reachable markings:
   ['P1']
@@ -1750,7 +1750,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task3_valid_large_state_space.pnml
 ============================================================
 Number of reachable markings: 32
 BDD node count: 1518
-Computation time: 0.054951 seconds
+Computation time: 0.050493 seconds
 
 (Showing first 10 of 32 markings)
   ['P1', 'P2', 'P3', 'P4', 'P5']
@@ -1827,7 +1827,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task3_valid_symmetric_net.pnml
 ============================================================
 Number of reachable markings: 8
 BDD node count: 156
-Computation time: 0.005177 seconds
+Computation time: 0.008061 seconds
 
 All reachable markings:
   ['P1', 'P2', 'P3']
@@ -1902,7 +1902,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_deadlock_after_cycle.p
 ============================================================
 Number of reachable markings: 3
 BDD node count: 17
-Computation time: 0.002510 seconds
+Computation time: 0.002001 seconds
 
 All reachable markings:
   ['P1']
@@ -1972,7 +1972,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_deadlock_reachable.pnm
 ============================================================
 Number of reachable markings: 2
 BDD node count: 6
-Computation time: 0.001814 seconds
+Computation time: 0.001111 seconds
 
 All reachable markings:
   ['P1']
@@ -2041,7 +2041,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_deadlock_simple.pnml
 ============================================================
 Number of reachable markings: 1
 BDD node count: 8
-Computation time: 0.001003 seconds
+Computation time: 0.001508 seconds
 
 All reachable markings:
   ['P1']
@@ -2109,7 +2109,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_multiple_deadlocks.pnm
 ============================================================
 Number of reachable markings: 1
 BDD node count: 13
-Computation time: 0.001001 seconds
+Computation time: 0.001029 seconds
 
 All reachable markings:
   ['P1']
@@ -2177,7 +2177,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_no_deadlock.pnml
 ============================================================
 Number of reachable markings: 2
 BDD node count: 6
-Computation time: 0.001554 seconds
+Computation time: 0.001998 seconds
 
 All reachable markings:
   ['P1']
@@ -2244,7 +2244,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task5_valid_optimization_conflict.
 ============================================================
 Number of reachable markings: 3
 BDD node count: 16
-Computation time: 0.000636 seconds
+Computation time: 0.002454 seconds
 
 All reachable markings:
   ['P1']
@@ -2314,7 +2314,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task5_valid_optimization_cycle.pnm
 ============================================================
 Number of reachable markings: 3
 BDD node count: 16
-Computation time: 0.001506 seconds
+Computation time: 0.002026 seconds
 
 All reachable markings:
   ['P1']
@@ -2452,7 +2452,7 @@ SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task5_valid_optimization_simple.pn
 ============================================================
 Number of reachable markings: 3
 BDD node count: 16
-Computation time: 0.002177 seconds
+Computation time: 0.001006 seconds
 
 All reachable markings:
   ['P1']
@@ -2541,7 +2541,7 @@ test_task5_valid_opt   3   2         3        2         3         16    True    
 ================================================================================
 
 ================================================================================
-Analysis completed at: 2025-12-12 21:28:33
+Analysis completed at: 2025-12-12 22:39:07
 Total models analyzed: 35
 Results saved to: results.txt
 ================================================================================
