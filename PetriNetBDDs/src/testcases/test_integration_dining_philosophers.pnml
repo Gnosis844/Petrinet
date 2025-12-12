@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="dining_philosophers" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Simplified dining philosophers: 2 philosophers, 2 forks -->
+    <!-- Tests deadlock detection and optimization -->
+    <place id="P1_thinking">
+      <name><text>P1_thinking</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P1_eating">
+      <name><text>P1_eating</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P2_thinking">
+      <name><text>P2_thinking</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2_eating">
+      <name><text>P2_eating</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="fork1">
+      <name><text>fork1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="fork2">
+      <name><text>fork2</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <transition id="P1_pickup">
+      <name><text>P1_pickup</text></name>
+    </transition>
+    <transition id="P1_putdown">
+      <name><text>P1_putdown</text></name>
+    </transition>
+    <transition id="P2_pickup">
+      <name><text>P2_pickup</text></name>
+    </transition>
+    <transition id="P2_putdown">
+      <name><text>P2_putdown</text></name>
+    </transition>
+    <!-- Philosopher 1 picks up fork1 and fork2 -->
+    <arc id="A1" source="P1_thinking" target="P1_pickup"/>
+    <arc id="A2" source="fork1" target="P1_pickup"/>
+    <arc id="A3" source="fork2" target="P1_pickup"/>
+    <arc id="A4" source="P1_pickup" target="P1_eating"/>
+    <!-- Philosopher 1 puts down forks -->
+    <arc id="A5" source="P1_eating" target="P1_putdown"/>
+    <arc id="A6" source="P1_putdown" target="P1_thinking"/>
+    <arc id="A7" source="P1_putdown" target="fork1"/>
+    <arc id="A8" source="P1_putdown" target="fork2"/>
+    <!-- Philosopher 2 picks up fork2 and fork1 -->
+    <arc id="A9" source="P2_thinking" target="P2_pickup"/>
+    <arc id="A10" source="fork2" target="P2_pickup"/>
+    <arc id="A11" source="fork1" target="P2_pickup"/>
+    <arc id="A12" source="P2_pickup" target="P2_eating"/>
+    <!-- Philosopher 2 puts down forks -->
+    <arc id="A13" source="P2_eating" target="P2_putdown"/>
+    <arc id="A14" source="P2_putdown" target="P2_thinking"/>
+    <arc id="A15" source="P2_putdown" target="fork2"/>
+    <arc id="A16" source="P2_putdown" target="fork1"/>
+  </net>
+</pnml>

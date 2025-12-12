@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="deadlock_after_cycle" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Deadlock after cycle: P1 -> T1 -> P2 -> T2 -> P1, then P1 -> T3 -> P3 (deadlock) -->
+    <!-- Tests that deadlock is reachable after some transitions -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2">
+      <name><text>P2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P3">
+      <name><text>P3</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <transition id="T2">
+      <name><text>T2</text></name>
+    </transition>
+    <transition id="T3">
+      <name><text>T3</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+    <arc id="A2" source="T1" target="P2"/>
+    <arc id="A3" source="P2" target="T2"/>
+    <arc id="A4" source="T2" target="P1"/>
+    <arc id="A5" source="P1" target="T3"/>
+    <arc id="A6" source="T3" target="P3"/>
+    <!-- P3 has no outgoing transitions, so it's a deadlock -->
+  </net>
+</pnml>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="complex_workflow" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Complex workflow: tests all tasks together -->
+    <!-- Contains cycles, branches, and potential deadlocks -->
+    <place id="start">
+      <name><text>Start</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="work1">
+      <name><text>Work1</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="work2">
+      <name><text>Work2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="sync">
+      <name><text>Sync</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="end">
+      <name><text>End</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="begin">
+      <name><text>Begin</text></name>
+    </transition>
+    <transition id="do_work1">
+      <name><text>DoWork1</text></name>
+    </transition>
+    <transition id="do_work2">
+      <name><text>DoWork2</text></name>
+    </transition>
+    <transition id="synchronize">
+      <name><text>Synchronize</text></name>
+    </transition>
+    <transition id="finish">
+      <name><text>Finish</text></name>
+    </transition>
+    <arc id="A1" source="start" target="begin"/>
+    <arc id="A2" source="begin" target="work1"/>
+    <arc id="A3" source="begin" target="work2"/>
+    <arc id="A4" source="work1" target="do_work1"/>
+    <arc id="A5" source="do_work1" target="sync"/>
+    <arc id="A6" source="work2" target="do_work2"/>
+    <arc id="A7" source="do_work2" target="sync"/>
+    <arc id="A8" source="sync" target="synchronize"/>
+    <arc id="A9" source="synchronize" target="end"/>
+  </net>
+</pnml>

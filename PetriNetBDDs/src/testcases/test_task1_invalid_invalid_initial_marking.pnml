@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="invalid_marking" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Invalid initial marking: not 0 or 1 (should be 1-safe) -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>2</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+  </net>
+</pnml>

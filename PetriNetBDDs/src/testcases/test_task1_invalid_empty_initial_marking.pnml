@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="empty_initial_marking" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Edge case: empty initial marking (no tokens) -->
+    <!-- Valid PNML but may cause issues in reachability analysis -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P2">
+      <name><text>P2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+    <arc id="A2" source="T1" target="P2"/>
+  </net>
+</pnml>

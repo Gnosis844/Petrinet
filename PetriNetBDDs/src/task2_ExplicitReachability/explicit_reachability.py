@@ -28,7 +28,7 @@ def is_enabled(model: PNModel, marking: Marking, tid: str) -> bool:
     Check if transition 'tid' is enabled in the given marking.
 
     A transition t is enabled iff all its input places contain a token.
-    Since the net is 1-safe, we represent a marking as a frozenset of
+    Since the net is 1-safe, represent a marking as a frozenset of
     place IDs that currently have a token.
     """
     t = model.transitions[tid]
@@ -67,7 +67,7 @@ def initial_marking(model: PNModel) -> Marking:
     """
     Build the initial marking M0 from the PNModel.
 
-    We assume a 1-safe net where each place has either 0 or 1 token initially,
+    Assume a 1-safe net where each place has either 0 or 1 token initially,
     encoded by Place.marked in PNModel.
     """
     return frozenset(p_id for p_id, p in model.places.items() if p.marked)

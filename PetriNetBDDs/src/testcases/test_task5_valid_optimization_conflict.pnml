@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="optimization_conflict" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Optimization with conflicting objectives -->
+    <!-- P1 -> T1 -> P2 (weight=10), P1 -> T2 -> P3 (weight=5) -->
+    <!-- Optimal: choose T1 to maximize P2 -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2">
+      <name><text>P2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P3">
+      <name><text>P3</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <transition id="T2">
+      <name><text>T2</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+    <arc id="A2" source="T1" target="P2"/>
+    <arc id="A3" source="P1" target="T2"/>
+    <arc id="A4" source="T2" target="P3"/>
+  </net>
+</pnml>

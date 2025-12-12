@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="duplicate_transition" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Invalid: duplicate transition ID -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <transition id="T1">
+      <name><text>T1_duplicate</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+  </net>
+</pnml>

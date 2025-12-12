@@ -1,24 +1,10 @@
 """
 Task 4: Deadlock detection using ILP over reachable markings.
-
-- Input:
-    * places: list of place IDs (strings)
-    * transitions: list of DeadlockTransition (name, pre, post)
-    * reachable_markings: list of markings, each marking is a dict:
-          { place_id: 0 or 1 }
-      (these markings are assumed to be reachable from Task 2/Task 3)
-
-- Output:
-    * (found, marking)
-      - found: True if exists a reachable deadlock marking, otherwise False
-      - marking: dict {place_id: 0/1} if found=True, otherwise None
-
-Idea:
 - Use selector variable y_i ∈ {0,1} to select exactly one marking in reachable_markings.
 - Link M_p = Σ_i y_i * reachable_markings[i][p].
 - Add constraint "deadlock": for every transition t,
       Σ_{p ∈ pre(t)} M_p ≤ |pre(t)| - 1
-  ⇒ no transition is enabled.
+  -> no transition is enabled.
 """
 
 from dataclasses import dataclass
@@ -73,32 +59,23 @@ def find_deadlock_with_ilp(
         One reachable deadlock marking (0/1 per place) if found=True, else None.
     """
 
-    # -------------------------------------------------
-    # 0. Quick check: if there exists a transition with
-    #    empty preset, then it is always enabled in any
-    #    marking. Therefore, there is NO dead marking.
-    # -------------------------------------------------
+    #  Quick check: if there exists a transition with
+    #  empty preset, then it is always enabled in any
+    #  marking. Therefore, there is NO dead marking.
     if any(len(t.pre) == 0 for t in transitions):
         return False, None
 
-    # -------------------------------------------------
-    # 1. Create ILP problem (feasibility)
-    #    We don't optimize anything; just look for a feasible solution.
-    # -------------------------------------------------
+    #  Create ILP problem (feasibility)
     problem = pulp.LpProblem("Deadlock_Detection", pulp.LpMinimize)
 
-    # -------------------------------------------------
-    # 2. Binary vars M_p for each place p (0/1 tokens)
-    # -------------------------------------------------
+    #  Binary vars M_p for each place p (0/1 tokens)
     M_vars: Dict[str, pulp.LpVariable] = {
         p: pulp.LpVariable(f"M_{p}", lowBound=0, upBound=1, cat="Binary")
         for p in places
     }
 
-    # -------------------------------------------------
-    # 3. Selector vars y_i for each reachable marking i
-    #    y_i = 1 ⇔ we choose marking i.
-    # -------------------------------------------------
+    #  Selector vars y_i for each reachable marking i
+    #  y_i = 1 <-> choose marking i.
     y_vars: List[pulp.LpVariable] = [
         pulp.LpVariable(f"y_{i}", lowBound=0, upBound=1, cat="Binary")
         for i in range(len(reachable_markings))
@@ -107,15 +84,7 @@ def find_deadlock_with_ilp(
     # Exactly one reachable marking is selected
     problem += pulp.lpSum(y_vars) == 1, "Select_exactly_one_reachable_marking"
 
-    # -------------------------------------------------
-    # 4. Link M to reachable markings via y_i:
-    #
-    #    For each place p:
-    #        M_p = Σ_i y_i * reachable_markings[i][p]
-    #
-    #    This enforces that (M_p)_p is exactly one of the
-    #    reachable markings in reachable_markings.
-    # -------------------------------------------------
+    # Link M to reachable markings via y_i:
     for p in places:
         problem += (
             M_vars[p]
@@ -125,45 +94,34 @@ def find_deadlock_with_ilp(
             )
         ), f"Link_M_{p}_to_reachables"
 
-    # -------------------------------------------------
-    # 5. Dead marking constraints:
-    #
-    #    A marking M is dead if no transition is enabled.
-    #    For a transition t with preset pre(t):
-    #       t enabled ⇔ ∀ p ∈ pre(t): M_p = 1
-    #
-    #    To force "t is disabled", we require:
-    #       Σ_{p ∈ pre(t)} M_p ≤ |pre(t)| - 1
-    #
-    #    We add this for every transition t.
-    # -------------------------------------------------
+    # Dead marking constraints:
+    # A marking M is dead if no transition is enabled.
+    # For a transition t with preset pre(t):
+    #    t enabled <-> ∀ p ∈ pre(t): M_p = 1
+    # To force "t is disabled", require:
+    #    Σ_{p ∈ pre(t)} M_p ≤ |pre(t)| - 1
+    #  Add this for every transition t.
     for t in transitions:
         if not t.pre:
             # theoretically shouldn't happen here because of the early return
-            # but we keep the guard for safety
+            # but keep the guard for safety
             continue
 
         problem += (
             pulp.lpSum(M_vars[p] for p in t.pre) <= len(t.pre) - 1
         ), f"Disable_transition_{t.name}"
 
-    # -------------------------------------------------
-    # 6. Dummy objective (we only need a feasible solution)
-    # -------------------------------------------------
+    # Dummy objective (only need a feasible solution)
     problem += 0, "Dummy_Objective"
 
-    # -------------------------------------------------
-    # 7. Solve
-    # -------------------------------------------------
+    # Solve
     status = problem.solve(pulp.PULP_CBC_CMD(msg=False))
 
     if pulp.LpStatus[status] != "Optimal":
         # No feasible marking satisfying "reachable + deadlock"
         return False, None
 
-    # -------------------------------------------------
-    # 8. Extract marking
-    # -------------------------------------------------
+    # Extract marking
     deadlock_marking: Dict[str, int] = {
         p: int(round(M_vars[p].value() or 0)) for p in places
     }

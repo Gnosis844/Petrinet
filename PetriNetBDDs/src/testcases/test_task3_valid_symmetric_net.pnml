@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="symmetric_net" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Symmetric net: benefits from BDD compression -->
+    <!-- 3 identical processes in parallel -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2">
+      <name><text>P2</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P3">
+      <name><text>P3</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="Q1">
+      <name><text>Q1</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="Q2">
+      <name><text>Q2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="Q3">
+      <name><text>Q3</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <transition id="T2">
+      <name><text>T2</text></name>
+    </transition>
+    <transition id="T3">
+      <name><text>T3</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+    <arc id="A2" source="T1" target="Q1"/>
+    <arc id="A3" source="P2" target="T2"/>
+    <arc id="A4" source="T2" target="Q2"/>
+    <arc id="A5" source="P3" target="T3"/>
+    <arc id="A6" source="T3" target="Q3"/>
+  </net>
+</pnml>

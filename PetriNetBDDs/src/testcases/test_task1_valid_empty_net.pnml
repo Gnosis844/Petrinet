@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="empty_net" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Empty net: no places, no transitions, no arcs -->
+    <!-- Valid but trivial - should parse successfully -->
+  </net>
+</pnml>

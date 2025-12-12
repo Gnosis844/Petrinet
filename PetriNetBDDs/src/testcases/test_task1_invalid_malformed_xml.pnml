@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="malformed" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Malformed XML: unclosed tag -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    <!-- Missing closing </place> tag -->
+  </net>
+</pnml>

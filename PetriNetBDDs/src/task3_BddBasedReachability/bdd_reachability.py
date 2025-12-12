@@ -1,10 +1,7 @@
-# symbolic.py
 """
 Task 3: Symbolic Reachability Analysis using Binary Decision Diagrams (BDD)
-
-Integrates with Task 1 (pnml_parser.py) and Task 2 (explicit_reachability.py).
-
-This module provides symbolic state space exploration using BDDs,
+- Integrates with Task 1 (pnml_parser.py) and Task 2 (explicit_reachability.py).
+- This module provides symbolic state space exploration using BDDs,
 which is more efficient for large Petri nets (in terms of memory)
 for many models.
 """
@@ -13,7 +10,7 @@ import time
 from typing import Dict, Set, FrozenSet, Optional
 
 from dd.autoref import BDD
-from pnml_parser import PNModel
+from task1_PnmlParsing.pnml_parser import PNModel
 
 
 Marking = FrozenSet[str]
@@ -162,7 +159,7 @@ class SymbolicAnalyzer:
             return self.bdd.false
 
         # NOTE: This implementation is "semi-symbolic":
-        # we enumerate satisfying assignments of the BDD, then fire explicitly.
+        # Enumerate satisfying assignments of the BDD, then fire explicitly.
         result = self.bdd.false
         assignments = list(self.bdd.pick_iter(enabled_states))
 

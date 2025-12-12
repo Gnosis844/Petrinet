@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="fork_join" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Fork-join pattern: P1 -> T1 -> (P2, P3) -> T2 -> P4 -->
+    <!-- Expected: 3 reachable markings -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2">
+      <name><text>P2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P3">
+      <name><text>P3</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="P4">
+      <name><text>P4</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <transition id="T2">
+      <name><text>T2</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+    <arc id="A2" source="T1" target="P2"/>
+    <arc id="A3" source="T1" target="P3"/>
+    <arc id="A4" source="P2" target="T2"/>
+    <arc id="A5" source="P3" target="T2"/>
+    <arc id="A6" source="T2" target="P4"/>
+  </net>
+</pnml>

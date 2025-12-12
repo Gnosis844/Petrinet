@@ -20,8 +20,10 @@ For each PNML file:
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple, FrozenSet
+from datetime import datetime
 
 from task1_PnmlParsing.pnml_parser import PNModel
 from task2_ExplicitReachability.explicit_reachability import (
@@ -31,7 +33,7 @@ from task2_ExplicitReachability.explicit_reachability import (
     is_enabled,
     run_explicit_analysis,
 )
-from task3_BddBasedReachability.symbolic import SymbolicAnalyzer
+from task3_BddBasedReachability.bdd_reachability import SymbolicAnalyzer
 from task4_IlpBddDeadlockDetection.deadlock_detection import DeadlockTransition, find_deadlock_with_ilp
 from task5_ReachableOptimization.optimization import optimize_reachable
 
@@ -63,6 +65,21 @@ def markings_to_dict_list(
 # -------------------------------------------------------------------
 # Per-model pipeline
 # -------------------------------------------------------------------
+
+class TeeOutput:
+    """Class to write output to both console and file."""
+    def __init__(self, *files):
+        self.files = files
+    
+    def write(self, obj):
+        for f in self.files:
+            f.write(obj)
+            f.flush()
+    
+    def flush(self):
+        for f in self.files:
+            f.flush()
+
 
 def analyze_model(pnml_path: Path) -> Optional[Dict]:
     """
@@ -96,7 +113,7 @@ def analyze_model(pnml_path: Path) -> Optional[Dict]:
     print("\n[Task 2] Explicit reachability analysis...")
     stats2 = run_explicit_analysis(model, model_name, print_details=False)
 
-    # We recompute states/deadlocks explicitly for cross-checks
+    # Recompute states/deadlocks explicitly for cross-checks
     states_explicit, edges_explicit = explicit_reachability(model)
     deadlocks_explicit = find_deadlocks(model, states_explicit)
 
@@ -128,7 +145,7 @@ def analyze_model(pnml_path: Path) -> Optional[Dict]:
     deadlock_sets_equal: Optional[bool] = None
 
     if markings_bdd is not None:
-        # Compare reachable marking sets if we have explicit enumeration from BDD
+        # Compare reachable marking sets if have explicit enumeration from BDD
         if len(states_explicit) == num_markings_bdd:
             reach_sets_equal = set(states_explicit) == set(markings_bdd)
         else:
@@ -271,6 +288,55 @@ def analyze_model(pnml_path: Path) -> Optional[Dict]:
 # Global main: parse args, run pipeline on multiple models
 # -------------------------------------------------------------------
 
+def discover_testcases(testcases_dir: Path = Path("testcases"), 
+                        filter_invalid: bool = True,
+                        filter_type: Optional[str] = None) -> List[Path]:
+    """
+    Discover all PNML test case files in the testcases directory.
+    
+    Parameters
+    ----------
+    testcases_dir : Path
+        Directory containing test case files
+    filter_invalid : bool
+        If True, exclude test cases with "invalid" in the filename
+    filter_type : Optional[str]
+        If provided, filter by type: "task1", "task2", "task3", "task4", "task5", "integration"
+        If None, include all types
+    
+    Returns
+    -------
+    List[Path]
+        Sorted list of test case file paths
+    """
+    if not testcases_dir.exists():
+        return []
+    
+    # Find all .pnml files
+    pnml_files = list(testcases_dir.glob("*.pnml"))
+    
+    # Filter invalid test cases if requested
+    if filter_invalid:
+        pnml_files = [f for f in pnml_files]
+    
+    # Filter by type if requested
+    if filter_type:
+        filter_type_lower = filter_type.lower()
+        if filter_type_lower == "integration":
+            pnml_files = [f for f in pnml_files if "integration" in f.name.lower()]
+        elif filter_type_lower.startswith("task"):
+            task_num = filter_type_lower.replace("task", "")
+            pnml_files = [f for f in pnml_files if f"task{task_num}" in f.name.lower()]
+        else:
+            # Unknown filter type, return empty
+            return []
+    
+    # Sort for consistent output
+    pnml_files.sort(key=lambda p: p.name)
+    
+    return pnml_files
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="MM BTL – Integrated Petri net analysis (Tasks 1–5)."
@@ -280,24 +346,98 @@ def main() -> None:
         nargs="*",
         help=(
             "PNML model files to analyze. "
-            "If omitted, a default small set is used (example.pnml, chain_4.pnml, mutex_2proc.pnml)."
+            "If omitted, all valid test cases from testcases/ directory will be used."
         ),
+    )
+    parser.add_argument(
+        "--testcases-dir",
+        type=str,
+        default="testcases",
+        help="Directory containing test case files (default: testcases)",
+    )
+    parser.add_argument(
+        "--include-invalid",
+        action="store_true",
+        help="Include invalid test cases (for testing error handling)",
+    )
+    parser.add_argument(
+        "--filter-type",
+        type=str,
+        choices=["task1", "task2", "task3", "task4", "task5", "integration"],
+        help="Filter test cases by type (task1-5 or integration)",
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        type=str,
+        help="Output file path to write results (default: results_<timestamp>.txt)",
+    )
+    parser.add_argument(
+        "--quiet",
+        "-q",
+        action="store_true",
+        help="Suppress console output (only write to file)",
     )
 
     args = parser.parse_args()
+    
+    # Save original stdout
+    original_stdout = sys.stdout
+    
+    # Setup output file
+    if args.output:
+        output_file_path = Path(args.output)
+    else:
+        output_file_path = Path(f"results.txt")
+    
+    # Open output file
+    output_file = open(output_file_path, "w", encoding="utf-8")
+    
+    # Setup output redirection
+    if args.quiet:
+        # Only write to file
+        sys.stdout = output_file
+    else:
+        # Write to both console and file
+        sys.stdout = TeeOutput(original_stdout, output_file)
+    
+    # Print header with timestamp
+    print("=" * 80)
+    print(f"Petri Net Analysis - Tasks 1-5")
+    print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Output file: {output_file_path}")
+    print("=" * 80)
+    print()
 
     if args.models:
         pnml_files = [Path(m) for m in args.models]
-    else:
-        # Default test set – adjust paths/filenames to your project layout
-        pnml_files = [
-            Path("testcases/example.pnml"),
-            Path("testcases/chain-4.pnml"),
-            Path("testcases/mutex-2proc.pnml"),
-        ]
-        print("No PNML files specified. Using default test set:")
+        print(f"Using specified PNML files ({len(pnml_files)} files):")
         for p in pnml_files:
             print(f"  - {p}")
+    else:
+        # Discover all valid test cases
+        testcases_dir = Path(args.testcases_dir)
+        pnml_files = discover_testcases(
+            testcases_dir=testcases_dir,
+            filter_invalid=not args.include_invalid,
+            filter_type=args.filter_type
+        )
+        
+        if not pnml_files:
+            print(f"No test cases found in {testcases_dir}")
+            if args.filter_type:
+                print(f"  (filtered by type: {args.filter_type})")
+            return
+        
+        filter_info = ""
+        if args.filter_type:
+            filter_info = f" (filtered: {args.filter_type})"
+        if args.include_invalid:
+            filter_info += " (including invalid)"
+        
+        print(f"Discovered {len(pnml_files)} test case(s) from {testcases_dir}{filter_info}:")
+        for p in pnml_files:
+            print(f"  - {p.name}")
 
     all_summaries: List[Dict] = []
 
@@ -344,6 +484,21 @@ def main() -> None:
         )
 
     print("=" * 80)
+    
+    # Print footer
+    print()
+    print("=" * 80)
+    print(f"Analysis completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Total models analyzed: {len(all_summaries)}")
+    print(f"Results saved to: {output_file_path}")
+    print("=" * 80)
+    
+    # Close output file and restore stdout
+    output_file.close()
+    sys.stdout = original_stdout
+    
+    if not args.quiet:
+        print(f"\nResults have been saved to: {output_file_path}")
 
 
 if __name__ == "__main__":

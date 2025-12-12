@@ -1,22 +1,13 @@
 """
 Task 5: Optimization over reachable markings.
-
-Goal:
-    Maximize c^T M  subject to  M ∈ Reach(M0),
-where:
-    - M is a 0/1 marking (1-safe net),
-    - Reach(M0) is determined by Task 3 (BDD symbolic reachability),
-    - c is a user-defined weight vector over places.
-
-Approach:
-    - Extend PNModel to compute the incidence matrix A = Post - Pre.
-    - Use an ILP with state equation:
-          M = M0 + A * sigma
-      where sigma[t] is the (integer) firing count of transition t.
-    - After solving the ILP, verify the resulting marking M against
-      the BDD reachable set from Task 3.
-    - If the ILP optimum is NOT reachable, add a no-good cut and solve again
-      (advanced part), until a reachable optimum is found or no solution exists.
+- Extend PNModel to compute the incidence matrix A = Post - Pre.
+- Use an ILP with state equation:
+        M = M0 + A * sigma
+    where sigma[t] is the (integer) firing count of transition t.
+- After solving the ILP, verify the resulting marking M against
+    the BDD reachable set from Task 3.
+- If the ILP optimum is NOT reachable, add a no-good cut and solve again
+    (advanced part), until a reachable optimum is found or no solution exists.
 """
 
 from typing import Dict, List, Tuple, Any, Optional
@@ -26,7 +17,7 @@ import pulp
 from dd.autoref import BDD
 
 from task1_PnmlParsing.pnml_parser import PNModel          # Task 1
-from task3_BddBasedReachability.symbolic import SymbolicAnalyzer    # Task 3
+from task3_BddBasedReachability.bdd_reachability import SymbolicAnalyzer    # Task 3
 
 
 # ====================================================================
@@ -95,7 +86,7 @@ def get_bdd_reach_data(model: PNModel) -> Tuple[BDD, Any, Dict[str, str]]:
         f"BDD nodes: {results['bdd_node_count']}, "
         f"reachable markings: {results['num_markings']}"
     )
-    # We do not propagate the timing information here; Task 5 focuses
+    # Do not propagate the timing information here; Task 5 focuses
     # on the ILP optimization itself.
 
     return bdd_instance, reachable_bdd, place_vars
@@ -178,7 +169,7 @@ def optimize_reachable(
     # 1. Obtain BDD reachable set from Task 3
     bdd_instance, bdd_reach, place_vars = get_bdd_reach_data(model)
 
-    # 2. Setup ILP (structure is created once; we will re-solve with extra cuts)
+    # 2. Setup ILP (structure is created once; re-solve with extra cuts)
     places: List[str] = sorted(model.places.keys())
     transitions: List[str] = sorted(model.transitions.keys())
     A: np.ndarray = model.incidence_matrix
@@ -214,7 +205,7 @@ def optimize_reachable(
         status_str = pulp.LpStatus.get(status, "Unknown")
         log_messages += f"  Solver status: {status_str}\n"
 
-        # If ILP is infeasible or not optimal, we cannot proceed further
+        # If ILP is infeasible or not optimal, cannot proceed further
         if status_str != "Optimal":
             log_messages += (
                 "  No optimal solution found at this iteration. "

@@ -1,7 +1,6 @@
 # model.py
 """
 Core data structures and PNML parsing for Task 1.
-
 - Place, Transition, PNModel
 - PNModel.load_pnml(...) đọc PNML và build internal representation
 - PNModel.validate() kiểm tra tính nhất quán (consistency) theo yêu cầu đề bài

@@ -1,0 +1,2547 @@
+================================================================================
+Petri Net Analysis - Tasks 1-5
+Started at: 2025-12-12 21:28:31
+Output file: results.txt
+================================================================================
+
+Discovered 39 test case(s) from testcases:
+  - test_integration_complex_workflow.pnml
+  - test_integration_dining_philosophers.pnml
+  - test_integration_mutex_2processes.pnml
+  - test_integration_producer_consumer_buffer.pnml
+  - test_integration_valid_basic.pnml
+  - test_invalid_missing_both_nodes.pnml
+  - test_task1_invalid_duplicate_place_id.pnml
+  - test_task1_invalid_duplicate_transition_id.pnml
+  - test_task1_invalid_empty_initial_marking.pnml
+  - test_task1_invalid_invalid_initial_marking.pnml
+  - test_task1_invalid_malformed_xml.pnml
+  - test_task1_invalid_missing_initial_marking.pnml
+  - test_task1_invalid_missing_source_node.pnml
+  - test_task1_invalid_missing_target_node.pnml
+  - test_task1_invalid_self_loop_place.pnml
+  - test_task1_invalid_self_loop_transition.pnml
+  - test_task1_valid_empty_net.pnml
+  - test_task1_valid_isolated_transition.pnml
+  - test_task1_valid_multiple_initial_tokens.pnml
+  - test_task1_valid_single_place.pnml
+  - test_task2_valid_branch_merge.pnml
+  - test_task2_valid_chain_4places.pnml
+  - test_task2_valid_concurrent_choice.pnml
+  - test_task2_valid_cycle_3states.pnml
+  - test_task2_valid_fork_join.pnml
+  - test_task2_valid_parallel_independent.pnml
+  - test_task2_valid_producer_consumer_cycle.pnml
+  - test_task2_valid_single_state.pnml
+  - test_task3_valid_large_state_space.pnml
+  - test_task3_valid_symmetric_net.pnml
+  - test_task4_valid_deadlock_after_cycle.pnml
+  - test_task4_valid_deadlock_reachable.pnml
+  - test_task4_valid_deadlock_simple.pnml
+  - test_task4_valid_multiple_deadlocks.pnml
+  - test_task4_valid_no_deadlock.pnml
+  - test_task5_valid_optimization_conflict.pnml
+  - test_task5_valid_optimization_cycle.pnml
+  - test_task5_valid_optimization_no_solution.pnml
+  - test_task5_valid_optimization_simple.pnml
+
+================================================================================
+MODEL: testcases\test_integration_complex_workflow.pnml
+================================================================================
+Loading PNML file: testcases\test_integration_complex_workflow.pnml
+PNML parsed successfully.
+Places: 5 | Transitions: 5 | Arcs: 9
+[Task 1] Parsed model: 5 places, 5 transitions, 9 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 9
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 5 BDD variables
+Initial marking: ['start']
+Fixed point reached after 5 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_complex_workflow.pnml
+============================================================
+Number of reachable markings: 9
+BDD node count: 105
+Computation time: 0.008562 seconds
+
+All reachable markings:
+  ['end']
+  ['end', 'sync']
+  ['end', 'work1']
+  ['end', 'work2']
+  ['start']
+  ['sync']
+  ['sync', 'work1']
+  ['sync', 'work2']
+  ['work1', 'work2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 9
+[Task 3] BDD node count: 105
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'end': 1, 'start': 1, 'sync': 1, 'work1': 1, 'work2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 5 BDD variables
+Initial marking: ['start']
+Fixed point reached after 5 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 105, reachable markings: 9
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'end': 0, 'start': 0, 'sync': 0, 'work1': 1, 'work2': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'end': 0, 'start': 0, 'sync': 0, 'work1': 1, 'work2': 1}
+[Task 5] Max objective value c^T M*: 2
+
+================================================================================
+MODEL: testcases\test_integration_dining_philosophers.pnml
+================================================================================
+Loading PNML file: testcases\test_integration_dining_philosophers.pnml
+PNML parsed successfully.
+Places: 6 | Transitions: 4 | Arcs: 16
+[Task 1] Parsed model: 6 places, 4 transitions, 16 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 3
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 6 BDD variables
+Initial marking: ['P1_thinking', 'P2_thinking', 'fork1', 'fork2']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_dining_philosophers.pnml
+============================================================
+Number of reachable markings: 3
+BDD node count: 57
+Computation time: 0.002034 seconds
+
+All reachable markings:
+  ['P1_eating', 'P2_thinking']
+  ['P1_thinking', 'P2_eating']
+  ['P1_thinking', 'P2_thinking', 'fork1', 'fork2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 3
+[Task 3] BDD node count: 57
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1_eating': 1, 'P1_thinking': 1, 'P2_eating': 1, 'P2_thinking': 1, 'fork1': 1, 'fork2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 6 BDD variables
+Initial marking: ['P1_thinking', 'P2_thinking', 'fork1', 'fork2']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 57, reachable markings: 3
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1_eating': 0, 'P1_thinking': 1, 'P2_eating': 0, 'P2_thinking': 1, 'fork1': 1, 'fork2': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1_eating': 0, 'P1_thinking': 1, 'P2_eating': 0, 'P2_thinking': 1, 'fork1': 1, 'fork2': 1}
+[Task 5] Max objective value c^T M*: 4
+
+================================================================================
+MODEL: testcases\test_integration_mutex_2processes.pnml
+================================================================================
+Loading PNML file: testcases\test_integration_mutex_2processes.pnml
+PNML parsed successfully.
+Places: 7 | Transitions: 6 | Arcs: 16
+[Task 1] Parsed model: 7 places, 6 transitions, 16 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 8
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 7 BDD variables
+Initial marking: ['P1_idle', 'P2_idle', 'mutex']
+Fixed point reached after 4 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_mutex_2processes.pnml
+============================================================
+Number of reachable markings: 8
+BDD node count: 167
+Computation time: 0.007017 seconds
+
+All reachable markings:
+  ['P1_crit', 'P2_idle']
+  ['P1_crit', 'P2_wait']
+  ['P1_idle', 'P2_crit']
+  ['P1_idle', 'P2_idle', 'mutex']
+  ['P1_idle', 'P2_wait', 'mutex']
+  ['P1_wait', 'P2_crit']
+  ['P1_wait', 'P2_idle', 'mutex']
+  ['P1_wait', 'P2_wait', 'mutex']
+============================================================
+
+[Task 3] Reachable markings (BDD): 8
+[Task 3] BDD node count: 167
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1_crit': 1, 'P1_idle': 1, 'P1_wait': 1, 'P2_crit': 1, 'P2_idle': 1, 'P2_wait': 1, 'mutex': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 7 BDD variables
+Initial marking: ['P1_idle', 'P2_idle', 'mutex']
+Fixed point reached after 4 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 167, reachable markings: 8
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1_crit': 0, 'P1_idle': 1, 'P1_wait': 0, 'P2_crit': 0, 'P2_idle': 1, 'P2_wait': 0, 'mutex': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1_crit': 0, 'P1_idle': 1, 'P1_wait': 0, 'P2_crit': 0, 'P2_idle': 1, 'P2_wait': 0, 'mutex': 1}
+[Task 5] Max objective value c^T M*: 3
+
+================================================================================
+MODEL: testcases\test_integration_producer_consumer_buffer.pnml
+================================================================================
+Loading PNML file: testcases\test_integration_producer_consumer_buffer.pnml
+PNML parsed successfully.
+Places: 4 | Transitions: 2 | Arcs: 8
+[Task 1] Parsed model: 4 places, 2 transitions, 8 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['consumer_ready', 'producer_ready']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_producer_consumer_buffer.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 20
+Computation time: 0.003008 seconds
+
+All reachable markings:
+  ['buffer_slot1', 'buffer_slot2', 'consumer_ready', 'producer_ready']
+  ['consumer_ready', 'producer_ready']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 20
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: 10 * tokens in CS places + 2 * tokens in Request places + 1 * tokens in others.
+  Weights c: {'buffer_slot1': 1, 'buffer_slot2': 1, 'consumer_ready': 10, 'producer_ready': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['consumer_ready', 'producer_ready']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 20, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'buffer_slot1': 1, 'buffer_slot2': 1, 'consumer_ready': 1, 'producer_ready': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'buffer_slot1': 1, 'buffer_slot2': 1, 'consumer_ready': 1, 'producer_ready': 1}
+[Task 5] Max objective value c^T M*: 13
+
+================================================================================
+MODEL: testcases\test_integration_valid_basic.pnml
+================================================================================
+Loading PNML file: testcases\test_integration_valid_basic.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 1 | Arcs: 2
+[Task 1] Parsed model: 2 places, 1 transitions, 2 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_integration_valid_basic.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 6
+Computation time: 0.001644 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 6
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 1}
+    marking set : ['P2']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 6, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_invalid_missing_both_nodes.pnml
+================================================================================
+Loading PNML file: testcases\test_invalid_missing_both_nodes.pnml
+[ERROR] PNML model is inconsistent:
+  - Arc (p_unknown -> t_unknown) has unknown source node 'p_unknown'.
+  - Arc (p_unknown -> t_unknown) has unknown target node 't_unknown'.
+[Error] Failed to parse PNML. Skipping this model.
+
+================================================================================
+MODEL: testcases\test_task1_invalid_duplicate_place_id.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_duplicate_place_id.pnml
+PNML parsed successfully.
+Places: 1 | Transitions: 1 | Arcs: 1
+[Task 1] Parsed model: 1 places, 1 transitions, 1 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_duplicate_place_id.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 2
+Computation time: 0.000997 seconds
+
+All reachable markings:
+  []
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 2
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0}
+    marking set : []
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 2, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0}
+[Task 5] Max objective value c^T M*: 0
+
+================================================================================
+MODEL: testcases\test_task1_invalid_duplicate_transition_id.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_duplicate_transition_id.pnml
+PNML parsed successfully.
+Places: 1 | Transitions: 1 | Arcs: 1
+[Task 1] Parsed model: 1 places, 1 transitions, 1 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_duplicate_transition_id.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 2
+Computation time: 0.001506 seconds
+
+All reachable markings:
+  []
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 2
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   False
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0}
+    marking set : []
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 2, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task1_invalid_empty_initial_marking.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_empty_initial_marking.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 1 | Arcs: 2
+[Task 1] Parsed model: 2 places, 1 transitions, 2 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_empty_initial_marking.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 4
+Computation time: 0.000998 seconds
+
+All reachable markings:
+  []
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 4
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0}
+    marking set : []
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 4, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 0}
+[Task 5] Max objective value c^T M*: 0
+
+================================================================================
+MODEL: testcases\test_task1_invalid_invalid_initial_marking.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_invalid_initial_marking.pnml
+PNML parsed successfully.
+Places: 1 | Transitions: 1 | Arcs: 1
+[Task 1] Parsed model: 1 places, 1 transitions, 1 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_invalid_initial_marking.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 2
+Computation time: 0.000997 seconds
+
+All reachable markings:
+  []
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 2
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0}
+    marking set : []
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 2, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0}
+[Task 5] Max objective value c^T M*: 0
+
+================================================================================
+MODEL: testcases\test_task1_invalid_malformed_xml.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_malformed_xml.pnml
+[ERROR] While parsing PNML: Opening and ending tag mismatch: place line 5 and net, line 9, column 9 (testcases/test_task1_invalid_malformed_xml.pnml, line 9)
+[Error] Failed to parse PNML. Skipping this model.
+
+================================================================================
+MODEL: testcases\test_task1_invalid_missing_initial_marking.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_missing_initial_marking.pnml
+PNML parsed successfully.
+Places: 1 | Transitions: 1 | Arcs: 1
+[Task 1] Parsed model: 1 places, 1 transitions, 1 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_missing_initial_marking.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 2
+Computation time: 0.001001 seconds
+
+All reachable markings:
+  []
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 2
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0}
+    marking set : []
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 2, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0}
+[Task 5] Max objective value c^T M*: 0
+
+================================================================================
+MODEL: testcases\test_task1_invalid_missing_source_node.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_missing_source_node.pnml
+[ERROR] PNML model is inconsistent:
+  - Arc (p_missing -> t1) has unknown source node 'p_missing'.
+[Error] Failed to parse PNML. Skipping this model.
+
+================================================================================
+MODEL: testcases\test_task1_invalid_missing_target_node.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_missing_target_node.pnml
+[ERROR] PNML model is inconsistent:
+  - Arc (p1 -> t_missing) has unknown target node 't_missing'.
+[Error] Failed to parse PNML. Skipping this model.
+
+================================================================================
+MODEL: testcases\test_task1_invalid_self_loop_place.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_self_loop_place.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 0 | Arcs: 1
+[Task 1] Parsed model: 2 places, 0 transitions, 1 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_self_loop_place.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 4
+Computation time: 0.001996 seconds
+
+All reachable markings:
+  ['P1']
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 4
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 1, 'P2': 0}
+    marking set : ['P1']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 4, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task1_invalid_self_loop_transition.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_invalid_self_loop_transition.pnml
+PNML parsed successfully.
+Places: 1 | Transitions: 2 | Arcs: 1
+[Task 1] Parsed model: 1 places, 2 transitions, 1 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_invalid_self_loop_transition.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 2
+Computation time: 0.001198 seconds
+
+All reachable markings:
+  ['P1']
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 2
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 2, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task1_valid_empty_net.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_valid_empty_net.pnml
+PNML parsed successfully.
+Places: 0 | Transitions: 0 | Arcs: 0
+[Task 1] Parsed model: 0 places, 0 transitions, 0 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 0 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_empty_net.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 1
+Computation time: 0.001001 seconds
+
+All reachable markings:
+  []
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 1
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {}
+    marking set : []
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 0 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 1, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {}
+[Task 5] Max objective value c^T M*: 0
+
+================================================================================
+MODEL: testcases\test_task1_valid_isolated_transition.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_valid_isolated_transition.pnml
+PNML parsed successfully.
+Places: 1 | Transitions: 1 | Arcs: 0
+[Task 1] Parsed model: 1 places, 1 transitions, 0 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_isolated_transition.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 2
+Computation time: 0.000000 seconds
+
+All reachable markings:
+  []
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 2
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: []
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 2, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0}
+[Task 5] Max objective value c^T M*: 0
+
+================================================================================
+MODEL: testcases\test_task1_valid_multiple_initial_tokens.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_valid_multiple_initial_tokens.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 1 | Arcs: 3
+[Task 1] Parsed model: 3 places, 1 transitions, 3 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1', 'P2']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_multiple_initial_tokens.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 11
+Computation time: 0.001006 seconds
+
+All reachable markings:
+  ['P1', 'P2']
+  ['P3']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 11
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0, 'P3': 1}
+    marking set : ['P3']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1', 'P2']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 11, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 1, 'P3': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 1, 'P3': 0}
+[Task 5] Max objective value c^T M*: 2
+
+================================================================================
+MODEL: testcases\test_task1_valid_single_place.pnml
+================================================================================
+Loading PNML file: testcases\test_task1_valid_single_place.pnml
+PNML parsed successfully.
+Places: 1 | Transitions: 0 | Arcs: 0
+[Task 1] Parsed model: 1 places, 0 transitions, 0 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task1_valid_single_place.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 2
+Computation time: 0.000996 seconds
+
+All reachable markings:
+  ['P1']
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 2
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 1}
+    marking set : ['P1']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 1 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 2, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task2_valid_branch_merge.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_branch_merge.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 2 | Arcs: 4
+[Task 1] Parsed model: 2 places, 2 transitions, 4 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_branch_merge.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 6
+Computation time: 0.001997 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 6
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 1}
+    marking set : ['P2']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 6, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task2_valid_chain_4places.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_chain_4places.pnml
+PNML parsed successfully.
+Places: 4 | Transitions: 3 | Arcs: 6
+[Task 1] Parsed model: 4 places, 3 transitions, 6 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 4
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 4 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_chain_4places.pnml
+============================================================
+Number of reachable markings: 4
+BDD node count: 34
+Computation time: 0.003999 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+  ['P3']
+  ['P4']
+============================================================
+
+[Task 3] Reachable markings (BDD): 4
+[Task 3] BDD node count: 34
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0, 'P3': 0, 'P4': 1}
+    marking set : ['P4']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1, 'P4': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 4 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 34, reachable markings: 4
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 0, 'P3': 0, 'P4': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 0, 'P3': 0, 'P4': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task2_valid_concurrent_choice.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_concurrent_choice.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 2 | Arcs: 4
+[Task 1] Parsed model: 2 places, 2 transitions, 4 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_concurrent_choice.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 6
+Computation time: 0.001026 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 6
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 1}
+    marking set : ['P2']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 6, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task2_valid_cycle_3states.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_cycle_3states.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 3 | Arcs: 6
+[Task 1] Parsed model: 3 places, 3 transitions, 6 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 3
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 3 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_cycle_3states.pnml
+============================================================
+Number of reachable markings: 3
+BDD node count: 17
+Computation time: 0.001893 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+  ['P3']
+============================================================
+
+[Task 3] Reachable markings (BDD): 3
+[Task 3] BDD node count: 17
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 3 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 17, reachable markings: 3
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 0, 'P3': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 0, 'P3': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task2_valid_fork_join.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_fork_join.pnml
+PNML parsed successfully.
+Places: 4 | Transitions: 2 | Arcs: 6
+[Task 1] Parsed model: 4 places, 2 transitions, 6 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 3
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 3 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_fork_join.pnml
+============================================================
+Number of reachable markings: 3
+BDD node count: 26
+Computation time: 0.001394 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2', 'P3']
+  ['P4']
+============================================================
+
+[Task 3] Reachable markings (BDD): 3
+[Task 3] BDD node count: 26
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0, 'P3': 0, 'P4': 1}
+    marking set : ['P4']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1, 'P4': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 3 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 26, reachable markings: 3
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 1, 'P3': 1, 'P4': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 1, 'P3': 1, 'P4': 0}
+[Task 5] Max objective value c^T M*: 2
+
+================================================================================
+MODEL: testcases\test_task2_valid_parallel_independent.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_parallel_independent.pnml
+PNML parsed successfully.
+Places: 4 | Transitions: 2 | Arcs: 4
+[Task 1] Parsed model: 4 places, 2 transitions, 4 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 4
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1', 'Q1']
+Fixed point reached after 3 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_parallel_independent.pnml
+============================================================
+Number of reachable markings: 4
+BDD node count: 36
+Computation time: 0.001878 seconds
+
+All reachable markings:
+  ['P1', 'Q1']
+  ['P1', 'Q2']
+  ['P2', 'Q1']
+  ['P2', 'Q2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 4
+[Task 3] BDD node count: 36
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 1, 'Q1': 0, 'Q2': 1}
+    marking set : ['P2', 'Q2']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'Q1': 1, 'Q2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1', 'Q1']
+Fixed point reached after 3 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 36, reachable markings: 4
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0, 'Q1': 1, 'Q2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0, 'Q1': 1, 'Q2': 0}
+[Task 5] Max objective value c^T M*: 2
+
+================================================================================
+MODEL: testcases\test_task2_valid_producer_consumer_cycle.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_producer_consumer_cycle.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 2 | Arcs: 4
+[Task 1] Parsed model: 2 places, 2 transitions, 4 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['p1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_producer_consumer_cycle.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 6
+Computation time: 0.001005 seconds
+
+All reachable markings:
+  ['p1']
+  ['p2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 6
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'p1': 1, 'p2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['p1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 6, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'p1': 1, 'p2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'p1': 1, 'p2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task2_valid_single_state.pnml
+================================================================================
+Loading PNML file: testcases\test_task2_valid_single_state.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 1 | Arcs: 2
+[Task 1] Parsed model: 2 places, 1 transitions, 2 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task2_valid_single_state.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 4
+Computation time: 0.000996 seconds
+
+All reachable markings:
+  ['P1']
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 4
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 1, 'P2': 0}
+    marking set : ['P1']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 4, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task3_valid_large_state_space.pnml
+================================================================================
+Loading PNML file: testcases\test_task3_valid_large_state_space.pnml
+PNML parsed successfully.
+Places: 10 | Transitions: 5 | Arcs: 10
+[Task 1] Parsed model: 10 places, 5 transitions, 10 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 32
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 10 BDD variables
+Initial marking: ['P1', 'P2', 'P3', 'P4', 'P5']
+Fixed point reached after 6 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task3_valid_large_state_space.pnml
+============================================================
+Number of reachable markings: 32
+BDD node count: 1518
+Computation time: 0.054951 seconds
+
+(Showing first 10 of 32 markings)
+  ['P1', 'P2', 'P3', 'P4', 'P5']
+  ['P1', 'P2', 'P3', 'P4', 'Q5']
+  ['P1', 'P2', 'P3', 'P5', 'Q4']
+  ['P1', 'P2', 'P3', 'Q4', 'Q5']
+  ['P1', 'P2', 'P4', 'P5', 'Q3']
+  ['P1', 'P2', 'P4', 'Q3', 'Q5']
+  ['P1', 'P2', 'P5', 'Q3', 'Q4']
+  ['P1', 'P2', 'Q3', 'Q4', 'Q5']
+  ['P1', 'P3', 'P4', 'P5', 'Q2']
+  ['P1', 'P3', 'P4', 'Q2', 'Q5']
+============================================================
+
+[Task 3] Reachable markings (BDD): 32
+[Task 3] BDD node count: 1518
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0, 'P3': 0, 'P4': 0, 'P5': 0, 'Q1': 1, 'Q2': 1, 'Q3': 1, 'Q4': 1, 'Q5': 1}
+    marking set : ['Q1', 'Q2', 'Q3', 'Q4', 'Q5']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1, 'P4': 1, 'P5': 1, 'Q1': 1, 'Q2': 1, 'Q3': 1, 'Q4': 1, 'Q5': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 10 BDD variables
+Initial marking: ['P1', 'P2', 'P3', 'P4', 'P5']
+Fixed point reached after 6 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 1518, reachable markings: 32
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 1, 'P3': 1, 'P4': 1, 'P5': 1, 'Q1': 0, 'Q2': 0, 'Q3': 0, 'Q4': 0, 'Q5': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 1, 'P3': 1, 'P4': 1, 'P5': 1, 'Q1': 0, 'Q2': 0, 'Q3': 0, 'Q4': 0, 'Q5': 0}
+[Task 5] Max objective value c^T M*: 5
+
+================================================================================
+MODEL: testcases\test_task3_valid_symmetric_net.pnml
+================================================================================
+Loading PNML file: testcases\test_task3_valid_symmetric_net.pnml
+PNML parsed successfully.
+Places: 6 | Transitions: 3 | Arcs: 6
+[Task 1] Parsed model: 6 places, 3 transitions, 6 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 8
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 6 BDD variables
+Initial marking: ['P1', 'P2', 'P3']
+Fixed point reached after 4 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task3_valid_symmetric_net.pnml
+============================================================
+Number of reachable markings: 8
+BDD node count: 156
+Computation time: 0.005177 seconds
+
+All reachable markings:
+  ['P1', 'P2', 'P3']
+  ['P1', 'P2', 'Q3']
+  ['P1', 'P3', 'Q2']
+  ['P1', 'Q2', 'Q3']
+  ['P2', 'P3', 'Q1']
+  ['P2', 'Q1', 'Q3']
+  ['P3', 'Q1', 'Q2']
+  ['Q1', 'Q2', 'Q3']
+============================================================
+
+[Task 3] Reachable markings (BDD): 8
+[Task 3] BDD node count: 156
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0, 'P3': 0, 'Q1': 1, 'Q2': 1, 'Q3': 1}
+    marking set : ['Q1', 'Q2', 'Q3']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1, 'Q1': 1, 'Q2': 1, 'Q3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 6 BDD variables
+Initial marking: ['P1', 'P2', 'P3']
+Fixed point reached after 4 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 156, reachable markings: 8
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 1, 'P3': 1, 'Q1': 0, 'Q2': 0, 'Q3': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 1, 'P3': 1, 'Q1': 0, 'Q2': 0, 'Q3': 0}
+[Task 5] Max objective value c^T M*: 3
+
+================================================================================
+MODEL: testcases\test_task4_valid_deadlock_after_cycle.pnml
+================================================================================
+Loading PNML file: testcases\test_task4_valid_deadlock_after_cycle.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 3 | Arcs: 6
+[Task 1] Parsed model: 3 places, 3 transitions, 6 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 3
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_deadlock_after_cycle.pnml
+============================================================
+Number of reachable markings: 3
+BDD node count: 17
+Computation time: 0.002510 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+  ['P3']
+============================================================
+
+[Task 3] Reachable markings (BDD): 3
+[Task 3] BDD node count: 17
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0, 'P3': 1}
+    marking set : ['P3']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 17, reachable markings: 3
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 0, 'P3': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 0, 'P3': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task4_valid_deadlock_reachable.pnml
+================================================================================
+Loading PNML file: testcases\test_task4_valid_deadlock_reachable.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 1 | Arcs: 2
+[Task 1] Parsed model: 2 places, 1 transitions, 2 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_deadlock_reachable.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 6
+Computation time: 0.001814 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 6
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 1}
+    marking set : ['P2']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 6, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task4_valid_deadlock_simple.pnml
+================================================================================
+Loading PNML file: testcases\test_task4_valid_deadlock_simple.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 1 | Arcs: 3
+[Task 1] Parsed model: 3 places, 1 transitions, 3 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_deadlock_simple.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 8
+Computation time: 0.001003 seconds
+
+All reachable markings:
+  ['P1']
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 8
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 1, 'P2': 0, 'P3': 0}
+    marking set : ['P1']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 8, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0, 'P3': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0, 'P3': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task4_valid_multiple_deadlocks.pnml
+================================================================================
+Loading PNML file: testcases\test_task4_valid_multiple_deadlocks.pnml
+PNML parsed successfully.
+Places: 4 | Transitions: 2 | Arcs: 6
+[Task 1] Parsed model: 4 places, 2 transitions, 6 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_multiple_deadlocks.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 13
+Computation time: 0.001001 seconds
+
+All reachable markings:
+  ['P1']
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 13
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 1, 'P2': 0, 'P3': 0, 'P4': 0}
+    marking set : ['P1']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1, 'P4': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 4 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 13, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0, 'P3': 0, 'P4': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0, 'P3': 0, 'P4': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task4_valid_no_deadlock.pnml
+================================================================================
+Loading PNML file: testcases\test_task4_valid_no_deadlock.pnml
+PNML parsed successfully.
+Places: 2 | Transitions: 2 | Arcs: 4
+[Task 1] Parsed model: 2 places, 2 transitions, 4 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 2
+[Task 2] Deadlock markings: 0
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task4_valid_no_deadlock.pnml
+============================================================
+Number of reachable markings: 2
+BDD node count: 6
+Computation time: 0.001554 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+============================================================
+
+[Task 3] Reachable markings (BDD): 2
+[Task 3] BDD node count: 6
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    0
+  #Deadlocks (from BDD):  0
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP reports no reachable deadlock (using BDD (Task 3)).
+  Task 2 deadlocks empty? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 2 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 6, reachable markings: 2
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task5_valid_optimization_conflict.pnml
+================================================================================
+Loading PNML file: testcases\test_task5_valid_optimization_conflict.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 2 | Arcs: 4
+[Task 1] Parsed model: 3 places, 2 transitions, 4 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 3
+[Task 2] Deadlock markings: 2
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task5_valid_optimization_conflict.pnml
+============================================================
+Number of reachable markings: 3
+BDD node count: 16
+Computation time: 0.000636 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+  ['P3']
+============================================================
+
+[Task 3] Reachable markings (BDD): 3
+[Task 3] BDD node count: 16
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    2
+  #Deadlocks (from BDD):  2
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 1, 'P3': 0}
+    marking set : ['P2']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 16, reachable markings: 3
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 0, 'P3': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 0, 'P3': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task5_valid_optimization_cycle.pnml
+================================================================================
+Loading PNML file: testcases\test_task5_valid_optimization_cycle.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 3 | Arcs: 6
+[Task 1] Parsed model: 3 places, 3 transitions, 6 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 3
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 3 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task5_valid_optimization_cycle.pnml
+============================================================
+Number of reachable markings: 3
+BDD node count: 16
+Computation time: 0.001506 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+  ['P3']
+============================================================
+
+[Task 3] Reachable markings (BDD): 3
+[Task 3] BDD node count: 16
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 0, 'P3': 1}
+    marking set : ['P3']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 3 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 16, reachable markings: 3
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 0, 'P3': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 0, 'P3': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task5_valid_optimization_no_solution.pnml
+================================================================================
+Loading PNML file: testcases\test_task5_valid_optimization_no_solution.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 1 | Arcs: 3
+[Task 1] Parsed model: 3 places, 1 transitions, 3 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 1
+[Task 2] Deadlock markings: 1
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task5_valid_optimization_no_solution.pnml
+============================================================
+Number of reachable markings: 1
+BDD node count: 8
+Computation time: 0.001005 seconds
+
+All reachable markings:
+  ['P1']
+============================================================
+
+[Task 3] Reachable markings (BDD): 1
+[Task 3] BDD node count: 8
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    1
+  #Deadlocks (from BDD):  1
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 1, 'P2': 0, 'P3': 0}
+    marking set : ['P1']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 1 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 8, reachable markings: 1
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 1, 'P2': 0, 'P3': 0}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 1, 'P2': 0, 'P3': 0}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+MODEL: testcases\test_task5_valid_optimization_simple.pnml
+================================================================================
+Loading PNML file: testcases\test_task5_valid_optimization_simple.pnml
+PNML parsed successfully.
+Places: 3 | Transitions: 2 | Arcs: 4
+[Task 1] Parsed model: 3 places, 2 transitions, 4 arcs
+
+[Task 2] Explicit reachability analysis...
+[Task 2] Reachable markings: 3
+[Task 2] Deadlock markings: 2
+
+[Task 3] Symbolic (BDD) reachability analysis...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+
+============================================================
+SYMBOLIC REACHABILITY ANALYSIS (BDD) – test_task5_valid_optimization_simple.pnml
+============================================================
+Number of reachable markings: 3
+BDD node count: 16
+Computation time: 0.002177 seconds
+
+All reachable markings:
+  ['P1']
+  ['P2']
+  ['P3']
+============================================================
+
+[Task 3] Reachable markings (BDD): 3
+[Task 3] BDD node count: 16
+
+[Compare Task 2 vs Task 3]
+  Reachable sets equal?   True
+  #Deadlocks (Task 2):    2
+  #Deadlocks (from BDD):  2
+  Deadlock sets equal?    True
+
+[Task 4] ILP-based deadlock detection...
+  ILP found reachable deadlock (using BDD (Task 3)):
+    marking dict: {'P1': 0, 'P2': 1, 'P3': 0}
+    marking set : ['P2']
+  Matches one of Task 2 deadlocks? True
+
+[Task 5] Optimization max c^T M over Reach(M0)...
+  Objective: Total number of tokens (c_p = 1 for all places).
+  Weights c: {'P1': 1, 'P2': 1, 'P3': 1}
+
+[Task 5] Running SymbolicAnalyzer from Task 3...
+
+Computing reachability symbolically (BDD)...
+Initialized 3 BDD variables
+Initial marking: ['P1']
+Fixed point reached after 2 iterations
+[Task 5] Symbolic reachability done. BDD nodes: 16, reachable markings: 3
+
+[Task 5] Optimization log:
+
+[Task 5] ILP solve iteration #1 (cuts so far: 0)
+  Solver status: Optimal
+  ILP candidate marking: {'P1': 0, 'P2': 0, 'P3': 1}
+  Candidate marking is consistent with BDD reachable set.
+  -> Accepted as optimal reachable marking.
+
+[Task 5] Optimal reachable marking M*: {'P1': 0, 'P2': 0, 'P3': 1}
+[Task 5] Max objective value c^T M*: 1
+
+================================================================================
+GLOBAL SUMMARY (Tasks 2, 3, 4, 5)
+================================================================================
+Model                  P   T T2_States  T2_Dead T3_States  BDD_Nodes  T2=T3? DeadEq?  T4_OK?   T5_Obj
+-----------------------------------------------------------------------------------------------------
+test_integration_com   5   5         9        0         9        105    True    True    True        2
+test_integration_din   6   4         3        0         3         57    True    True    True        4
+test_integration_mut   7   6         8        0         8        167    True    True    True        3
+test_integration_pro   4   2         2        0         2         20    True    True    True       13
+test_integration_val   2   1         2        1         2          6    True    True    True        1
+test_task1_invalid_d   1   1         1        1         1          2    True    True    True        0
+test_task1_invalid_d   1   1         2        1         2          2   False    True    True        1
+test_task1_invalid_e   2   1         1        1         1          4    True    True    True        0
+test_task1_invalid_i   1   1         1        1         1          2    True    True    True        0
+test_task1_invalid_m   1   1         1        1         1          2    True    True    True        0
+test_task1_invalid_s   2   0         1        1         1          4    True    True    True        1
+test_task1_invalid_s   1   2         1        0         1          2    True    True    True        1
+test_task1_valid_emp   0   0         1        1         1          1    True    True    True        0
+test_task1_valid_iso   1   1         1        0         1          2    True    True    True        0
+test_task1_valid_mul   3   1         2        1         2         11    True    True    True        2
+test_task1_valid_sin   1   0         1        1         1          2    True    True    True        1
+test_task2_valid_bra   2   2         2        1         2          6    True    True    True        1
+test_task2_valid_cha   4   3         4        1         4         34    True    True    True        1
+test_task2_valid_con   2   2         2        1         2          6    True    True    True        1
+test_task2_valid_cyc   3   3         3        0         3         17    True    True    True        1
+test_task2_valid_for   4   2         3        1         3         26    True    True    True        2
+test_task2_valid_par   4   2         4        1         4         36    True    True    True        2
+test_task2_valid_pro   2   2         2        0         2          6    True    True    True        1
+test_task2_valid_sin   2   1         1        1         1          4    True    True    True        1
+test_task3_valid_lar  10   5        32        1        32       1518    True    True    True        5
+test_task3_valid_sym   6   3         8        1         8        156    True    True    True        3
+test_task4_valid_dea   3   3         3        1         3         17    True    True    True        1
+test_task4_valid_dea   2   1         2        1         2          6    True    True    True        1
+test_task4_valid_dea   3   1         1        1         1          8    True    True    True        1
+test_task4_valid_mul   4   2         1        1         1         13    True    True    True        1
+test_task4_valid_no_   2   2         2        0         2          6    True    True    True        1
+test_task5_valid_opt   3   2         3        2         3         16    True    True    True        1
+test_task5_valid_opt   3   3         3        1         3         16    True    True    True        1
+test_task5_valid_opt   3   1         1        1         1          8    True    True    True        1
+test_task5_valid_opt   3   2         3        2         3         16    True    True    True        1
+================================================================================
+
+================================================================================
+Analysis completed at: 2025-12-12 21:28:33
+Total models analyzed: 35
+Results saved to: results.txt
+================================================================================

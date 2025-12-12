@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="deadlock_reachable" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Deadlock is reachable: P1 -> T1 -> P2 (deadlock) -->
+    <!-- P2 has no enabled transitions -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2">
+      <name><text>P2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <arc id="A1" source="P1" target="T1"/>
+    <arc id="A2" source="T1" target="P2"/>
+    <!-- P2 has no outgoing transitions, so it's a deadlock state -->
+  </net>
+</pnml>

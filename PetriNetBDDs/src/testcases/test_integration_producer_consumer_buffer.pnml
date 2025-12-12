@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="producer_consumer_buffer" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Producer-Consumer with buffer: tests all tasks -->
+    <place id="producer_ready">
+      <name><text>producer_ready</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="buffer_slot1">
+      <name><text>buffer_slot1</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="buffer_slot2">
+      <name><text>buffer_slot2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <place id="consumer_ready">
+      <name><text>consumer_ready</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <transition id="produce">
+      <name><text>produce</text></name>
+    </transition>
+    <transition id="consume">
+      <name><text>consume</text></name>
+    </transition>
+    <!-- Producer produces to buffer slot 1 or 2 -->
+    <arc id="A1" source="producer_ready" target="produce"/>
+    <arc id="A2" source="produce" target="buffer_slot1"/>
+    <arc id="A3" source="produce" target="buffer_slot2"/>
+    <arc id="A4" source="produce" target="producer_ready"/>
+    <!-- Consumer consumes from buffer -->
+    <arc id="A5" source="buffer_slot1" target="consume"/>
+    <arc id="A6" source="buffer_slot2" target="consume"/>
+    <arc id="A7" source="consumer_ready" target="consume"/>
+    <arc id="A8" source="consume" target="consumer_ready"/>
+  </net>
+</pnml>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="isolated_transition" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Transition with no input/output places (isolated) -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <!-- No arcs connecting P1 and T1 -->
+  </net>
+</pnml>

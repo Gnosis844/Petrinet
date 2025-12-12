@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="single_state" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <!-- Single state: no enabled transitions from initial marking -->
+    <!-- Expected: 1 reachable marking (deadlock immediately) -->
+    <place id="P1">
+      <name><text>P1</text></name>
+      <initialMarking><text>1</text></initialMarking>
+    </place>
+    <place id="P2">
+      <name><text>P2</text></name>
+      <initialMarking><text>0</text></initialMarking>
+    </place>
+    <transition id="T1">
+      <name><text>T1</text></name>
+    </transition>
+    <!-- T1 requires P2 (which is empty), so it's never enabled -->
+    <arc id="A1" source="P2" target="T1"/>
+    <arc id="A2" source="T1" target="P1"/>
+  </net>
+</pnml>
